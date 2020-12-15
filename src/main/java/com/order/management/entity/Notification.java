@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="NOTIFICATION_INFO")
-public class NotificationInfo {
+public class Notification {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
@@ -21,16 +21,16 @@ public class NotificationInfo {
 	private Integer id;
 	
 	@Column(name="MESSAGE")
-	@Size(min = 8, message = "Food must be minimum 10 Character String")
+	@Size(min = 8, message = "Notification must be minimum 10 Character String")
 	private String message ;
 	
 	 //Default-Constructor
-    protected NotificationInfo()
+    protected Notification()
     {
     	
     }
 	
-	public NotificationInfo(@Size(min = 10, message = "Notification must be minimum 10 Character String") String message) {
+	public Notification(@Size(min = 10, message = "Notification must be minimum 10 Character String") String message) {
 		super();
 		this.message = message;
 	}

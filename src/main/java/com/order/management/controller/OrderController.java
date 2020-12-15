@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.order.management.entity.NotificationInfo;
+import com.order.management.entity.Notification;
 import com.order.management.mapper.MapperUtils;
 import com.order.management.service.OrderTrackingService;
 
@@ -30,13 +30,13 @@ public class OrderController {
 	private OrderTrackingService service;
 	
 	@GetMapping(path="/fetchNotifications")
-	public List<NotificationInfo> retrieveNotifications(){
+	public List<Notification> retrieveNotifications(){
 		logger.info("To fetch all notifications in the system");
 		return service.finalAllNotifications();
 	}
 	
 	@GetMapping(path="/fetchNotifications/{id}")
-	public Optional<NotificationInfo> retrieveNotificationById(@PathVariable Integer id){
+	public Optional<Notification> retrieveNotificationById(@PathVariable Integer id){
 		logger.info("To fetch all notifications in the system");
 		return service.findNotificationById(id);
 	}

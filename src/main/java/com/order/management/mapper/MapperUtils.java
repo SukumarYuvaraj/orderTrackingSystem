@@ -1,14 +1,14 @@
 package com.order.management.mapper;
 
 import com.google.gson.Gson;
-import com.order.management.entity.NotificationInfo;
+import com.order.management.entity.Notification;
 
 public class MapperUtils {
 		
 	//For Notification Class conversion
-	public static NotificationInfo convert(String message)
+	public static Notification convert(String message)
 	{
-		 return new Gson().fromJson(message, NotificationInfo.class);
+		 return new Gson().fromJson(message, Notification.class);
 	}
 
 }

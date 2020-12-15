@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.order.management.entity.NotificationInfo;
+import com.order.management.entity.Notification;
 import com.order.management.repository.NotificationInfoRepository;
 import com.order.management.service.OrderTrackingService;
 
@@ -30,19 +30,19 @@ public class OrderTrackingServiceImpl implements OrderTrackingService {
 
 
 	@Override
-	public List<NotificationInfo> finalAllNotifications() {
+	public List<Notification> finalAllNotifications() {
 		logger.info("To fetch all the Notifications available in the system");
-		return (List<NotificationInfo>) repo.findAll();
+		return (List<Notification>) repo.findAll();
 	}
 
 	@Override
-	public NotificationInfo saveNotifications(NotificationInfo message) {
+	public Notification saveNotifications(Notification message) {
 		logger.info("To save new Notification in to the system");
 		return repo.save(message);
 	}
 
 	@Override
-	public Optional<NotificationInfo> findNotificationById(Integer Id) {
+	public Optional<Notification> findNotificationById(Integer Id) {
 		logger.info("To find Notification by Id in the system");
 		return repo.findById(Id);
 	}
@@ -50,7 +50,10 @@ public class OrderTrackingServiceImpl implements OrderTrackingService {
 	@Override
 	public void removeNotification(Integer Id) {
 		logger.info("To remove Notification by Id in the system");
+		if(repo.existsById(Id))
+		{
 		repo.deleteById(Id);
+		}
 	}
 	
 	
