@@ -16,28 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.order.management.entity.Notification;
 import com.order.management.mapper.MapperUtils;
-import com.order.management.service.OrderTrackingService;
+import com.order.management.service.NotificationService;
 
 
 @RestController
 @RequestMapping(path="/orderTracking")
-public class OrderController {
+public class NotificationController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
 	
 	@Autowired
-	@Qualifier(value="orderTrackingService")
-	private OrderTrackingService service;
+	@Qualifier(value="notificationService")
+	private NotificationService service;
 	
 	@GetMapping(path="/fetchNotifications")
 	public List<Notification> retrieveNotifications(){
 		logger.info("To fetch all notifications in the system");
-		return service.finalAllNotifications();
+		return service.findAllNotifications();
 	}
 	
 	@GetMapping(path="/fetchNotifications/{id}")
 	public Optional<Notification> retrieveNotificationById(@PathVariable Integer id){
-		logger.info("To fetch all notifications in the system");
+		logger.info("To fetch specific notification in the system for the given Id: "+id);
 		return service.findNotificationById(id);
 	}
 	
@@ -48,7 +48,7 @@ public class OrderController {
 		logger.info("To save new notification in to the system");
 		try
 		{
-		service.saveNotifications(MapperUtils.convert(message));
+		service.saveNotifications(MapperUtils.convertNotification(message));
 		}
 		catch(Exception ex)
 		{
@@ -61,7 +61,7 @@ public class OrderController {
 		logger.info("To remove the notification in the system");
 		try
 		{
-		service.removeNotification((MapperUtils.convert(message).getId()));
+		service.removeNotification((MapperUtils.convertNotification(message).getId()));
 		}
 		catch(Exception ex)
 		{

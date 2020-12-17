@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import com.order.management.entity.Notification;
 
-public interface OrderTrackingService {
+public interface NotificationService {
 	
-	List<Notification> finalAllNotifications();
+	List<Notification> findAllNotifications();
 	Optional<Notification> findNotificationById(Integer Id);
 	Notification saveNotifications(Notification message);
 	void removeNotification(Integer Id);

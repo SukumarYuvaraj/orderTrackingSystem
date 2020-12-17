@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -46,11 +47,11 @@ public class Customer {
 	
 	@Column(name="MOBILE_NUMBER")
 	@NotNull
-	@Size(min =10, message="MobileNumber must be 10 digits")
-	private Integer mobileNumer;
+	//@Size(min =10, message="MobileNumber must be 10 digits")
+	private Long mobileNumber;
 	
 	@Column(name="PHONE_NUMBER")
-	private Integer phoneNumber;
+	private Long phoneNumber;
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
@@ -62,10 +63,12 @@ public class Customer {
 	@Column(name="UPDATED_DATE")
 	private Date updatedDate;
 	
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="CUST_ID")
     private Set<CustomerAddress> address = new HashSet<>();
 	 
 	 @OneToMany(fetch = FetchType.LAZY)
+	 @JoinColumn(name="CUST_ID")
 	 private List<Order> orders = new ArrayList<>();
 	 
 	 //Default-Constructor
@@ -75,13 +78,13 @@ public class Customer {
 	 }
 	 
 	public Customer(Integer id, @NotBlank(message = "Name cannot be blank") String name, @Email String email,
-			@NotNull @Size(min = 10, message = "MobileNumber must be 10 digits") Integer mobileNumer,
-			Integer phoneNumber, Set<CustomerAddress> address) {
+			@NotNull @Size(min = 10, message = "MobileNumber must be 10 digits") Long mobileNumber,
+			Long phoneNumber, Set<CustomerAddress> address) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.mobileNumer = mobileNumer;
+		this.mobileNumber = mobileNumber;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 	}
@@ -110,19 +113,19 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Integer getMobileNumer() {
-		return mobileNumer;
+	public Long getMobileNumer() {
+		return mobileNumber;
 	}
 
-	public void setMobileNumer(Integer mobileNumer) {
-		this.mobileNumer = mobileNumer;
+	public void setMobileNumer(Long mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
-	public Integer getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -160,7 +163,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", mobileNumer=" + mobileNumer
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", mobileNumber=" + mobileNumber
 				+ ", phoneNumber=" + phoneNumber + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
 				+ ", address=" + address + ", orders=" + orders + "]";
 	}

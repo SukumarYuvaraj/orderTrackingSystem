@@ -4,18 +4,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Range;
 
 import com.order.management.enums.AddressType;
 
@@ -29,10 +27,9 @@ public class CustomerAddress {
 	@Column(name="ID ")
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUST_ID", nullable=false)
-	private Customer customer;
-
+	@Column(name="CUST_ID")
+	private Integer custId; 
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name="ADDRESS_TYPE")
 	private AddressType addressType;
@@ -61,7 +58,7 @@ public class CustomerAddress {
 	
 	@Column(name="ZIPCODE")
 	@NotNull
-	@Size(min =6, message="ZipCode must be 06 digits")
+	@Range(min =6, message="ZipCode must be 06 digits")
 	private Integer zipCode;
 	
 	@Column(name="LANDMARK")
@@ -75,7 +72,7 @@ public class CustomerAddress {
     	
     }
     
-	public CustomerAddress(Integer id, Customer customer, AddressType addressType,
+	public CustomerAddress(Integer id, AddressType addressType,
 			@NotBlank(message = "AddressLine 01 cannot be blank") String addressLineOne, String addressLineTwo,
 			String addressLineThree, @NotBlank(message = "AddressLine 01 cannot be blank") String customerCity,
 			@NotBlank(message = "AddressLine 01 cannot be blank") String customerState,
@@ -84,7 +81,6 @@ public class CustomerAddress {
 			@NotBlank(message = "LandMark cannot be blank") String landMark) {
 		super();
 		this.id = id;
-		this.customer = customer;
 		this.addressType = addressType;
 		this.addressLineOne = addressLineOne;
 		this.addressLineTwo = addressLineTwo;
@@ -102,14 +98,6 @@ public class CustomerAddress {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public AddressType getAddressType() {
@@ -183,13 +171,21 @@ public class CustomerAddress {
 	public void setLandMark(String landMark) {
 		this.landMark = landMark;
 	}
+	
+	public Integer getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Integer custId) {
+		this.custId = custId;
+	}
 
 	@Override
 	public String toString() {
-		return "CustomerAddress [id=" + id + ", customer=" + customer + ", addressType=" + addressType
-				+ ", addressLineOne=" + addressLineOne + ", addressLineTwo=" + addressLineTwo + ", addressLineThree="
-				+ addressLineThree + ", customerCity=" + customerCity + ", customerState=" + customerState
-				+ ", customerCountry=" + customerCountry + ", zipCode=" + zipCode + ", landMark=" + landMark + "]";
+		return "CustomerAddress [id=" + id + ", custId=" + custId + ", addressType=" + addressType + ", addressLineOne="
+				+ addressLineOne + ", addressLineTwo=" + addressLineTwo + ", addressLineThree=" + addressLineThree
+				+ ", customerCity=" + customerCity + ", customerState=" + customerState + ", customerCountry="
+				+ customerCountry + ", zipCode=" + zipCode + ", landMark=" + landMark + "]";
 	}
 	
 }

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.order.management.entity.Notification;
 import com.order.management.repository.NotificationInfoRepository;
-import com.order.management.service.OrderTrackingService;
+import com.order.management.service.NotificationService;
 
-@Service(value="orderTrackingService")
-public class OrderTrackingServiceImpl implements OrderTrackingService {
+@Service(value="notificationService")
+public class NotificationServiceImpl implements NotificationService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(OrderTrackingServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(NotificationServiceImpl.class);
 	
 	@Autowired
 	private NotificationInfoRepository repo;
@@ -30,7 +30,7 @@ public class OrderTrackingServiceImpl implements OrderTrackingService {
 
 
 	@Override
-	public List<Notification> finalAllNotifications() {
+	public List<Notification> findAllNotifications() {
 		logger.info("To fetch all the Notifications available in the system");
 		return (List<Notification>) repo.findAll();
 	}
