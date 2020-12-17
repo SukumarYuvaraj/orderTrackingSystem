@@ -80,6 +80,7 @@ public class Product {
 	private Set<ProductExpenseFields> productExpenseFields ;
 	
 	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name="PRODUCT_ID")
 	private List<Order> orders = new ArrayList<>();
 	
 	 //Default-Constructor

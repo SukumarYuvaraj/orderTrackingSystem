@@ -6,12 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,91 +24,91 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.order.management.enums.OrderStatus;
 
 @Entity
-@Table(name="ORDER_INFO")
+@Table(name = "ORDER_INFO")
 public class Order {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
-	@GenericGenerator(name = "native",strategy = "native")
-	@Column(name="ID ")
-	private Integer id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUST_ID", nullable=false)
-	private Customer customer;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PRODUCT_ID", nullable=false)
-	private Product product;
-	
-	@Column(name="DESCRIPTION")
-	@NotBlank(message="Name cannot be blank")
-	@Size(min=10, message="Description must be 10 characters minimum")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Column(name = "ID ")
+	private Integer id;
+
+	@Column(name = "CUST_ID")
+	@NotNull
+	private Integer customerId;
+
+	@Column(name = "PRODUCT_ID")
+	@NotNull
+	private Integer productId;
+
+	@Column(name = "DESCRIPTION")
+	@NotBlank(message = "Name cannot be blank")
+	@Size(min = 10, message = "Description must be 10 characters minimum")
 	private String description;
-	
+
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
-	@Column(name="CREATED_DATE")
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
+
 	@UpdateTimestamp
 	@Temporal(TemporalType.DATE)
-	@Column(name="UPDATED_DATE")
+	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
-	
-	@Column(name="DELIVERY_DATE")
+
+	@Column(name = "DELIVERY_DATE")
 	@NotNull
 	private Date deliveryDate;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="STATUS")
+	@Column(name = "STATUS")
 	@ColumnDefault("ORDER_RECEIVED")
 	private OrderStatus productStatus;
-	
-	@Column(name="ADVANCE_AMOUNT")
+
+	@Column(name = "ADVANCE_AMOUNT")
 	private Double advanceAmount;
-	
-	@Column(name="PENDING_AMOUNT")
+
+	@Column(name = "PENDING_AMOUNT")
 	private Double pendingAmount;
-	
-	@Column(name="DELIVERY_CHARGES")
+
+	@Column(name = "DELIVERY_CHARGES")
 	private Double deliveryCharges;
-	
-	@Column(name="BASE_PRICE")
+
+	@Column(name = "BASE_PRICE")
 	@NotNull
 	@ColumnDefault("0.0")
 	private Double basePrice;
-	
-	@Column(name="FINAL_PRICE")
+
+	@Column(name = "FINAL_PRICE")
 	@NotNull
 	@ColumnDefault("0.0")
 	private Double finalPrice;
-	
-	@Column(name="QUANTITY")
+
+	@Column(name = "QUANTITY")
 	@ColumnDefault("0")
 	@NotNull
 	private Integer quantity;
-	
-	@Column(name="GAIN_OR_LOSS")
-	private Integer gainOrLoss;
-	
-	 //Default-Constructor
-	 protected Order()
-	 {
-	    	
-	 }
 
-	public Order(Integer id, Customer customer, Product product,
+	@Column(name = "GAIN_OR_LOSS")
+	private Integer gainOrLoss;
+
+	// Default-Constructor
+	protected Order() {
+
+	}
+
+	public Order(Integer customerId, Integer productId,
 			@NotBlank(message = "Name cannot be blank") @Size(min = 10, message = "Description must be 10 characters minimum") String description,
-			Date createdDate, OrderStatus productStatus, Double advanceAmount, Double pendingAmount,
-			Double deliveryCharges, @NotNull Double basePrice, @NotNull Double finalPrice, @NotNull Integer quantity,
-			Integer gainOrLoss) {
+			Date createdDate, Date updatedDate, @NotNull Date deliveryDate, OrderStatus productStatus,
+			Double advanceAmount, Double pendingAmount, Double deliveryCharges, @NotNull Double basePrice,
+			@NotNull Double finalPrice, @NotNull Integer quantity, Integer gainOrLoss) {
 		super();
-		this.id = id;
-		this.customer = customer;
-		this.product = product;
+		this.customerId = customerId;
+		this.productId = productId;
 		this.description = description;
 		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.deliveryDate = deliveryDate;
 		this.productStatus = productStatus;
 		this.advanceAmount = advanceAmount;
 		this.pendingAmount = pendingAmount;
@@ -130,20 +127,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Integer getProductId() {
+		return productId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
 	public String getDescription() {
@@ -241,6 +238,15 @@ public class Order {
 	public void setGainOrLoss(Integer gainOrLoss) {
 		this.gainOrLoss = gainOrLoss;
 	}
-	 
-	 
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", customerId=" + customerId + ", productId=" + productId + ", description="
+				+ description + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", deliveryDate="
+				+ deliveryDate + ", productStatus=" + productStatus + ", advanceAmount=" + advanceAmount
+				+ ", pendingAmount=" + pendingAmount + ", deliveryCharges=" + deliveryCharges + ", basePrice="
+				+ basePrice + ", finalPrice=" + finalPrice + ", quantity=" + quantity + ", gainOrLoss=" + gainOrLoss
+				+ "]";
+	}
+
 }

@@ -1,9 +1,10 @@
 package com.order.management.enums;
 
-public enum CustomerSearchParams {
+public enum SearchParams {
 	
 	NAME,
 	EMAIL,
 	MOBILENUMBER,
+	STATUS,
 	PHONENUMBER;
 }

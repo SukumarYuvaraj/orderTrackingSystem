@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.order.management.entity.Customer;
 import com.order.management.entity.CustomerAddress;
-import com.order.management.enums.CustomerSearchParams;
+import com.order.management.enums.SearchParams;
 import com.order.management.mapper.SearchForm;
 import com.order.management.repository.CustomerInfoRepository;
 import com.order.management.service.CustomerService;
@@ -53,7 +53,8 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer saveCustomer(Customer customer) {
 		
 		Set<CustomerAddress> address = customer.getAddress();
-		address.stream().filter(customerFilter -> null == customerFilter.getCustId()).forEach(customerValue -> customerValue.setCustId(customer.getId())); 
+		address.stream().filter(customerFilter -> null == customerFilter.getCustId())
+				.forEach(customerValue -> customerValue.setCustId(customer.getId()));
 		customer.setAddress(address);
 		
 		return repo.save(customer);
@@ -62,49 +63,37 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<Customer> findCustomer(SearchForm form) {
 
-		logger.info("To fetch customer in the system for the given param: "+ form.toString());
+		logger.info("To fetch customer in the system for the given param: " + form.toString());
 		List<Customer> customerList = new ArrayList<Customer>();
 		Optional<Customer> customerValue = Optional.empty();
-		
-		switch(CustomerSearchParams.valueOf(form.getKey().toUpperCase()))
-		{
-		case NAME: 
-		{
-			customerList.addAll(repo.findByName(form.getValue()));
-			break;
-		}
-		case EMAIL: 
-		{
-			customerValue = repo.findByEmail(form.getValue());
-			if(customerValue.isPresent())
-			{
-				customerList.add(customerValue.get());
+
+		if (form.getKey() != null && form.getValue() != null) {
+			switch (SearchParams.valueOf(form.getKey().toUpperCase())) {
+			case NAME: {
+				customerList.addAll(repo.findByName(form.getValue()));
+				break;
 			}
-			break;
-		}
-		case MOBILENUMBER: 
-		{
-			customerValue = repo.findByMobileNumber(Long.parseLong(form.getValue()));
-			if(customerValue.isPresent())
-			{
-				customerList.add(customerValue.get());
+			case EMAIL: {
+				customerValue = repo.findByEmail(form.getValue());
+				customerValue.ifPresent(value -> customerList.add(value));
+				break;
 			}
-			break;
-		}
-		case PHONENUMBER: 
-		{
-			customerValue =  repo.findByPhoneNumber(Long.parseLong(form.getValue()));
-			if(customerValue.isPresent())
-			{
-				customerList.add(customerValue.get());
+			case MOBILENUMBER: {
+				customerValue = repo.findByMobileNumber(Long.parseLong(form.getValue()));
+				customerValue.ifPresent(value -> customerList.add(value));
+				break;
 			}
-			break;
+			case PHONENUMBER: {
+				customerValue = repo.findByPhoneNumber(Long.parseLong(form.getValue()));
+				customerValue.ifPresent(value -> customerList.add(value));
+				break;
+			}
+
+			default:
+				logger.error("Invalid Search Param used for CustomerSearch : " + form.getKey());
+			}
 		}
-		
-		default: 
-			logger.error("Invalid Search Param used for CustomerSearch : "+form.getKey());
-		}
-		
+
 		return customerList;
 	}
 
