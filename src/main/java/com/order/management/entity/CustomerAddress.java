@@ -28,6 +28,7 @@ public class CustomerAddress {
 	private Integer id;
 	
 	@Column(name="CUST_ID")
+	@NotNull
 	private Integer custId; 
 	
 	@Enumerated(EnumType.STRING)

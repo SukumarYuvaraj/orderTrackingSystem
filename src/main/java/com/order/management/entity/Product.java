@@ -3,6 +3,7 @@ package com.order.management.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -74,8 +75,9 @@ public class Product {
 	@Column(name="UPDATED_DATE")
 	private Date updatedDate;
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private ProductExpense expense ;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="PRODUCT_ID")
+	private Set<ProductExpenseFields> productExpenseFields ;
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();
@@ -86,18 +88,21 @@ public class Product {
 	    	
 	 }
 
-	public Product(Integer id,
+	public Product(
 			@NotBlank(message = "Name cannot be blank") @Size(min = 4, message = "Name must be 4 characters minimum") String name,
 			@NotBlank(message = "Name cannot be blank") @Size(min = 10, message = "Description must be 10 characters minimum") String description,
-			@NotNull Double price, @NotNull Integer quantity, ProductStatus productStatus, ProductExpense expense) {
+			@NotNull Double price, @NotNull Integer quantity, ProductStatus productStatus, Date createdDate,
+			Date updatedDate, Set<ProductExpenseFields> productExpenseFields, List<Order> orders) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
 		this.productStatus = productStatus;
-		this.expense = expense;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.productExpenseFields = productExpenseFields;
+		this.orders = orders;
 	}
 
 	public Integer getId() {
@@ -148,22 +153,6 @@ public class Product {
 		this.productStatus = productStatus;
 	}
 
-	public ProductExpense getExpense() {
-		return expense;
-	}
-
-	public void setExpense(ProductExpense expense) {
-		this.expense = expense;
-	}
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-	
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -180,11 +169,28 @@ public class Product {
 		this.updatedDate = updatedDate;
 	}
 
+	public Set<ProductExpenseFields> getProductExpenseFields() {
+		return productExpenseFields;
+	}
+
+	public void setProductExpenseFields(Set<ProductExpenseFields> productExpenseFields) {
+		this.productExpenseFields = productExpenseFields;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", quantity=" + quantity + ", productStatus=" + productStatus + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + ", expense=" + expense + ", orders=" + orders + "]";
+				+ ", updatedDate=" + updatedDate + ", productExpenseFields=" + productExpenseFields + ", orders="
+				+ orders + "]";
 	}
 	 
 }

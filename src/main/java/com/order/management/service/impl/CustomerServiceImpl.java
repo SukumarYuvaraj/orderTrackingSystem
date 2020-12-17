@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.order.management.entity.Customer;
 import com.order.management.entity.CustomerAddress;
 import com.order.management.enums.CustomerSearchParams;
-import com.order.management.mapper.CustomerSearchForm;
+import com.order.management.mapper.SearchForm;
 import com.order.management.repository.CustomerInfoRepository;
 import com.order.management.service.CustomerService;
 
@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> findCustomer(CustomerSearchForm form) {
+	public List<Customer> findCustomer(SearchForm form) {
 
 		logger.info("To fetch customer in the system for the given param: "+ form.toString());
 		List<Customer> customerList = new ArrayList<Customer>();

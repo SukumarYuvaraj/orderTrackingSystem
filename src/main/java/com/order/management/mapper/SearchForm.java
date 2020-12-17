@@ -1,11 +1,11 @@
 package com.order.management.mapper;
 
-public class CustomerSearchForm {
+public class SearchForm {
 	
 	private String key; 
 	private String value;
 	
-	public CustomerSearchForm(String key, String value) {
+	public SearchForm(String key, String value) {
 		super();
 		this.key = key;
 		this.value = value;
@@ -29,7 +29,7 @@ public class CustomerSearchForm {
 
 	@Override
 	public String toString() {
-		return "CustomerSearchForm [key=" + key + ", value=" + value + "]";
+		return "SearchForm [key=" + key + ", value=" + value + "]";
 	}
 	
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.order.management.entity.Customer;
-import com.order.management.mapper.CustomerSearchForm;
+import com.order.management.mapper.SearchForm;
 import com.order.management.service.CustomerService;
 
 
@@ -42,7 +42,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping(path="/fetchCustomer")
-	public List<Customer> retrieveCustomer(@RequestBody CustomerSearchForm form)
+	public List<Customer> retrieveCustomer(@RequestBody SearchForm form)
 	{
 		logger.info("To fetch customer in the system for the given param: "+ form.toString());
 		return service.findCustomer(form);

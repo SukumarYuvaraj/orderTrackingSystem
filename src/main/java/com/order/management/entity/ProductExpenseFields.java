@@ -2,12 +2,9 @@ package com.order.management.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,9 +22,9 @@ public class ProductExpenseFields {
 	@Column(name="ID ")
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PRODUCT_EXPENSES_ID", nullable=false)
-	private ProductExpense expense;
+    @Column(name="PRODUCT_ID")
+    @NotNull
+    private Integer productId;
 	
 	@Column(name="NAME")
 	@NotBlank(message="Name cannot be blank")
@@ -49,11 +46,11 @@ public class ProductExpenseFields {
 	    	
 	 }
 
-	public ProductExpenseFields(Integer id, ProductExpense expense,
+	public ProductExpenseFields(Integer id, Integer productId,
 			@NotBlank(message = "Name cannot be blank") String name, @NotNull Integer quantity, @NotNull Double price) {
 		super();
 		this.id = id;
-		this.expense = expense;
+		this.productId = productId;
 		this.name = name;
 		this.quantity = quantity;
 		this.price = price;
@@ -67,12 +64,12 @@ public class ProductExpenseFields {
 		this.id = id;
 	}
 
-	public ProductExpense getExpense() {
-		return expense;
+	public Integer getProductId() {
+		return productId;
 	}
 
-	public void setExpense(ProductExpense expense) {
-		this.expense = expense;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
@@ -101,8 +98,8 @@ public class ProductExpenseFields {
 
 	@Override
 	public String toString() {
-		return "ProductExpenseFields [id=" + id + ", expense=" + expense + ", name=" + name + ", quantity=" + quantity
-				+ ", price=" + price + "]";
+		return "ProductExpenseFields [id=" + id + ", productId=" + productId + ", name=" + name + ", quantity="
+				+ quantity + ", price=" + price + "]";
 	}
 	
 }

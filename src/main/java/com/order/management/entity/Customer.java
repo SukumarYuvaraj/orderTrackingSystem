@@ -26,6 +26,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name="CUSTOMER_INFO")
@@ -47,7 +48,7 @@ public class Customer {
 	
 	@Column(name="MOBILE_NUMBER")
 	@NotNull
-	//@Size(min =10, message="MobileNumber must be 10 digits")
+	@Range(min =10, message="MobileNumber must be 10 digits")
 	private Long mobileNumber;
 	
 	@Column(name="PHONE_NUMBER")
