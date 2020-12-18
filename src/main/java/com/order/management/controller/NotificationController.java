@@ -1,7 +1,13 @@
 package com.order.management.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.order.management.entity.Notification;
 import com.order.management.mapper.MapperUtils;
+import com.order.management.reports.NotificationPDFExporter;
 import com.order.management.service.NotificationService;
 import com.order.management.utils.ApplicationConstants;
+
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 
 @RestController
@@ -68,6 +79,51 @@ public class NotificationController {
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	@GetMapping(path="/notifications/export/csv")
+	public void exportToCSV(HttpServletResponse response) throws IOException
+	{
+		response.setContentType("text/csv");
+        DateFormat dateFormatter = new SimpleDateFormat(ApplicationConstants.YYYY_MM_DD);
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Notifications_" + currentDateTime + ApplicationConstants.FILE_NAME_CSV;
+        response.setHeader(headerKey, headerValue);
+        
+        List<Notification> notificationList = service.findAllNotifications();
+        
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"ID", "Message"};
+        String[] nameMapping = {"id", "message"};
+         
+        csvWriter.writeHeader(csvHeader);
+         
+        for (Notification notification : notificationList) {
+            csvWriter.write(notification, nameMapping);
+        }
+         
+        csvWriter.close();
+		
+	}
+	
+	@GetMapping(path="/notifications/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws IOException
+	{
+		response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat(ApplicationConstants.YYYY_MM_DD);
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Notifications_" + currentDateTime + ApplicationConstants.FILE_NAME_PDF;
+        response.setHeader(headerKey, headerValue);
+        
+        List<Notification> notificationList = service.findAllNotifications();
+        
+       NotificationPDFExporter exporter = new NotificationPDFExporter(notificationList);
+       exporter.export(response);
+		
 	}
 	
 }
