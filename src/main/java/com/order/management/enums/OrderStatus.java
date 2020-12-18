@@ -1,5 +1,7 @@
 package com.order.management.enums;
 
+import java.util.Arrays;
+
 public enum OrderStatus {
 	
 	ORDER_RECEIVED("ORDER_RECEIVED"),
@@ -15,6 +17,11 @@ public enum OrderStatus {
 
 	public String getStatus() {
 		return status;
+	}
+	
+	public static boolean isOrderStatusValue(String formValue)
+	{
+		return Arrays.stream(OrderStatus.values()).anyMatch(values -> values.name().contentEquals(formValue.toUpperCase()));
 	}
 
 }

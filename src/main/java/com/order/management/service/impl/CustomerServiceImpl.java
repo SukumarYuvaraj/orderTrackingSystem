@@ -16,6 +16,7 @@ import com.order.management.enums.SearchParams;
 import com.order.management.mapper.SearchForm;
 import com.order.management.repository.CustomerInfoRepository;
 import com.order.management.service.CustomerService;
+import com.order.management.utils.Utilities;
 
 @Service(value="customerService")
 public class CustomerServiceImpl implements CustomerService {
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Customer> customerList = new ArrayList<Customer>();
 		Optional<Customer> customerValue = Optional.empty();
 
-		if (form.getKey() != null && form.getValue() != null) {
+		if (Utilities.proceedSearch(form)) {
 			switch (SearchParams.valueOf(form.getKey().toUpperCase())) {
 			case NAME: {
 				customerList.addAll(repo.findByName(form.getValue()));

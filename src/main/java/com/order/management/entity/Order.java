@@ -1,5 +1,6 @@
 package com.order.management.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -58,12 +59,12 @@ public class Order {
 
 	@Column(name = "DELIVERY_DATE")
 	@NotNull
-	private Date deliveryDate;
+	private LocalDate deliveryDate;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "STATUS")
 	@ColumnDefault("ORDER_RECEIVED")
-	private OrderStatus productStatus;
+	private OrderStatus orderStatus;
 
 	@Column(name = "ADVANCE_AMOUNT")
 	private Double advanceAmount;
@@ -99,7 +100,7 @@ public class Order {
 
 	public Order(Integer customerId, Integer productId,
 			@NotBlank(message = "Name cannot be blank") @Size(min = 10, message = "Description must be 10 characters minimum") String description,
-			Date createdDate, Date updatedDate, @NotNull Date deliveryDate, OrderStatus productStatus,
+			Date createdDate, Date updatedDate, @NotNull LocalDate deliveryDate, OrderStatus orderStatus,
 			Double advanceAmount, Double pendingAmount, Double deliveryCharges, @NotNull Double basePrice,
 			@NotNull Double finalPrice, @NotNull Integer quantity, Integer gainOrLoss) {
 		super();
@@ -109,7 +110,7 @@ public class Order {
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.deliveryDate = deliveryDate;
-		this.productStatus = productStatus;
+		this.orderStatus = orderStatus;
 		this.advanceAmount = advanceAmount;
 		this.pendingAmount = pendingAmount;
 		this.deliveryCharges = deliveryCharges;
@@ -167,20 +168,20 @@ public class Order {
 		this.updatedDate = updatedDate;
 	}
 
-	public Date getDeliveryDate() {
+	public LocalDate getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(LocalDate deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public OrderStatus getProductStatus() {
-		return productStatus;
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
 	}
 
-	public void setProductStatus(OrderStatus productStatus) {
-		this.productStatus = productStatus;
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 	public Double getAdvanceAmount() {
@@ -243,7 +244,7 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", customerId=" + customerId + ", productId=" + productId + ", description="
 				+ description + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", deliveryDate="
-				+ deliveryDate + ", productStatus=" + productStatus + ", advanceAmount=" + advanceAmount
+				+ deliveryDate + ", orderStatus=" + orderStatus + ", advanceAmount=" + advanceAmount
 				+ ", pendingAmount=" + pendingAmount + ", deliveryCharges=" + deliveryCharges + ", basePrice="
 				+ basePrice + ", finalPrice=" + finalPrice + ", quantity=" + quantity + ", gainOrLoss=" + gainOrLoss
 				+ "]";

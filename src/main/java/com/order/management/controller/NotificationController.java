@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.order.management.entity.Notification;
 import com.order.management.mapper.MapperUtils;
 import com.order.management.service.NotificationService;
+import com.order.management.utils.ApplicationConstants;
 
 
 @RestController
-@RequestMapping(path="/orderTracking")
+@RequestMapping(path= ApplicationConstants.BASE_CONTEXT)
 public class NotificationController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);

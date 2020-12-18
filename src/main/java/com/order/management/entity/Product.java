@@ -1,8 +1,6 @@
 package com.order.management.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -79,10 +77,6 @@ public class Product {
 	@JoinColumn(name="PRODUCT_ID")
 	private Set<ProductExpenseFields> productExpenseFields ;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="PRODUCT_ID")
-	private List<Order> orders = new ArrayList<>();
-	
 	 //Default-Constructor
 	 protected Product()
 	 {
@@ -93,7 +87,7 @@ public class Product {
 			@NotBlank(message = "Name cannot be blank") @Size(min = 4, message = "Name must be 4 characters minimum") String name,
 			@NotBlank(message = "Name cannot be blank") @Size(min = 10, message = "Description must be 10 characters minimum") String description,
 			@NotNull Double price, @NotNull Integer quantity, ProductStatus productStatus, Date createdDate,
-			Date updatedDate, Set<ProductExpenseFields> productExpenseFields, List<Order> orders) {
+			Date updatedDate, Set<ProductExpenseFields> productExpenseFields) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -103,7 +97,6 @@ public class Product {
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.productExpenseFields = productExpenseFields;
-		this.orders = orders;
 	}
 
 	public Integer getId() {
@@ -178,20 +171,12 @@ public class Product {
 		this.productExpenseFields = productExpenseFields;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", quantity=" + quantity + ", productStatus=" + productStatus + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + ", productExpenseFields=" + productExpenseFields + ", orders="
-				+ orders + "]";
+				+ ", updatedDate=" + updatedDate + ", productExpenseFields=" + productExpenseFields + "]";
 	}
 	 
 }

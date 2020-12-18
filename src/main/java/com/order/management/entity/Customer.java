@@ -1,9 +1,7 @@
 package com.order.management.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -67,10 +65,6 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="CUST_ID")
     private Set<CustomerAddress> address = new HashSet<>();
-	 
-	 @OneToMany(fetch = FetchType.LAZY)
-	 @JoinColumn(name="CUST_ID")
-	 private List<Order> orders = new ArrayList<>();
 	 
 	 //Default-Constructor
 	 protected Customer()
@@ -138,14 +132,6 @@ public class Customer {
 		this.address = address;
 	}
 	
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-	
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -166,7 +152,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", mobileNumber=" + mobileNumber
 				+ ", phoneNumber=" + phoneNumber + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
-				+ ", address=" + address + ", orders=" + orders + "]";
+				+ ", address=" + address +"]";
 	}
 
 }

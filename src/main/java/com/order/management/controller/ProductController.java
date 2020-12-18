@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.order.management.entity.Product;
 import com.order.management.mapper.SearchForm;
 import com.order.management.service.ProductService;
+import com.order.management.utils.ApplicationConstants;
 
 @RestController
-@RequestMapping(path = "/orderTracking")
+@RequestMapping(path= ApplicationConstants.BASE_CONTEXT)
 public class ProductController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -47,7 +48,7 @@ public class ProductController {
 	}
 
 	@PostMapping(path = "/saveProduct")
-	public Product saveCustomer(@RequestBody Product product) {
+	public Product saveProduct(@RequestBody Product product) {
 		logger.info("To save product in the system :" + product.toString());
 		return service.saveProduct(product);
 	}

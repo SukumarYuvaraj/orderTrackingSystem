@@ -1,7 +1,6 @@
 package com.order.management.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +15,7 @@ import com.order.management.enums.SearchParams;
 import com.order.management.mapper.SearchForm;
 import com.order.management.repository.ProductInfoRepository;
 import com.order.management.service.ProductService;
+import com.order.management.utils.Utilities;
 
 @Service(value="productService")
 public class ProductServiceImpl implements ProductService {
@@ -24,6 +24,20 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductInfoRepository repo;
+	
+	public ProductServiceImpl(ProductInfoRepository repo) {
+    	this.repo = repo;
+	}
+	
+	public ProductInfoRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(ProductInfoRepository repo) {
+		this.repo = repo;
+	}
+
+
 
 	@Override
 	public List<Product> findAllProducts() {
@@ -50,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> productList = new ArrayList<Product>();
 		Optional<Product> productValue = Optional.empty();
 
-		if (form.getKey() != null && form.getValue() != null) {
+		if (Utilities.proceedSearch(form)) {
 			switch (SearchParams.valueOf(form.getKey().toUpperCase())) {
 			case NAME: {
 				productValue = repo.findByName(form.getValue());
@@ -59,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 			case STATUS: {
-				if(Arrays.stream(ProductStatus.values()).anyMatch(values -> values.name().contentEquals(form.getValue().toUpperCase())))
+			    if(ProductStatus.isProductStatusValue(form.getValue().toUpperCase()))
 				{
 				productList.addAll(repo.findByProductStatus(ProductStatus.valueOf(form.getValue().toUpperCase())));
 				}
@@ -73,5 +87,6 @@ public class ProductServiceImpl implements ProductService {
 
 		return productList;
 	}
-
+	
+	
 }
