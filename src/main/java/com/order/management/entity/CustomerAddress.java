@@ -1,5 +1,7 @@
 package com.order.management.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,8 +21,13 @@ import com.order.management.enums.AddressType;
 
 @Entity
 @Table(name="CUSTOMER_ADDRESS")
-public class CustomerAddress {
+public class CustomerAddress implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
 	@GenericGenerator(name = "native",strategy = "native")

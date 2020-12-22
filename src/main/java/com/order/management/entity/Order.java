@@ -1,5 +1,6 @@
 package com.order.management.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -26,7 +27,12 @@ import com.order.management.enums.OrderStatus;
 
 @Entity
 @Table(name = "ORDER_INFO")
-public class Order {
+public class Order implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
@@ -90,9 +96,6 @@ public class Order {
 	@NotNull
 	private Integer quantity;
 
-	@Column(name = "GAIN_OR_LOSS")
-	private Integer gainOrLoss;
-
 	// Default-Constructor
 	protected Order() {
 
@@ -102,7 +105,7 @@ public class Order {
 			@NotBlank(message = "Name cannot be blank") @Size(min = 10, message = "Description must be 10 characters minimum") String description,
 			Date createdDate, Date updatedDate, @NotNull LocalDate deliveryDate, OrderStatus orderStatus,
 			Double advanceAmount, Double pendingAmount, Double deliveryCharges, @NotNull Double basePrice,
-			@NotNull Double finalPrice, @NotNull Integer quantity, Integer gainOrLoss) {
+			@NotNull Double finalPrice, @NotNull Integer quantity) {
 		super();
 		this.customerId = customerId;
 		this.productId = productId;
@@ -117,7 +120,6 @@ public class Order {
 		this.basePrice = basePrice;
 		this.finalPrice = finalPrice;
 		this.quantity = quantity;
-		this.gainOrLoss = gainOrLoss;
 	}
 
 	public Integer getId() {
@@ -232,13 +234,6 @@ public class Order {
 		this.quantity = quantity;
 	}
 
-	public Integer getGainOrLoss() {
-		return gainOrLoss;
-	}
-
-	public void setGainOrLoss(Integer gainOrLoss) {
-		this.gainOrLoss = gainOrLoss;
-	}
 
 	@Override
 	public String toString() {
@@ -246,8 +241,7 @@ public class Order {
 				+ description + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", deliveryDate="
 				+ deliveryDate + ", orderStatus=" + orderStatus + ", advanceAmount=" + advanceAmount
 				+ ", pendingAmount=" + pendingAmount + ", deliveryCharges=" + deliveryCharges + ", basePrice="
-				+ basePrice + ", finalPrice=" + finalPrice + ", quantity=" + quantity + ", gainOrLoss=" + gainOrLoss
-				+ "]";
+				+ basePrice + ", finalPrice=" + finalPrice + ", quantity=" + quantity + "]";
 	}
 
 }

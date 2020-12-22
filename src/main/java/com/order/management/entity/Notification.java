@@ -1,5 +1,7 @@
 package com.order.management.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +14,13 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="NOTIFICATION_INFO")
-public class Notification {
+public class Notification implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
 	@GenericGenerator(name = "native",strategy = "native")

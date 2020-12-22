@@ -1,5 +1,6 @@
 package com.order.management.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,8 +32,13 @@ import com.order.management.enums.ProductStatus;
 
 @Entity
 @Table(name="PRODUCT_INFO")
-public class Product {
+public class Product implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
 	@GenericGenerator(name = "native",strategy = "native")
@@ -75,6 +82,7 @@ public class Product {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="PRODUCT_ID")
+	@OrderBy(value = "id")
 	private Set<ProductExpenseFields> productExpenseFields ;
 	
 	 //Default-Constructor

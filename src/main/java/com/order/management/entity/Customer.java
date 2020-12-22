@@ -1,5 +1,6 @@
 package com.order.management.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,7 +30,12 @@ import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name="CUSTOMER_INFO")
-public class Customer {
+public class Customer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY,generator="native")
@@ -64,6 +71,7 @@ public class Customer {
 	
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="CUST_ID")
+    @OrderBy(value = "id")
     private Set<CustomerAddress> address = new HashSet<>();
 	 
 	 //Default-Constructor
