@@ -43,6 +43,12 @@ public class Notification implements Serializable {
 	}
 
 
+	public Notification(Integer id, String message) {
+		super();
+		this.id = id;
+		this.message = message;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotificationReport2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c47ae3ed-97df-43d9-a5a5-b18a7a2d6ecc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Notifications"/>
+	<style name="alternateStyle" backcolor="#FF0000" fontName="Arial">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($V{REPORT_COUNT}%2==0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFCC33"/>
+		</conditionalStyle>
+	</style>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="message" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="171" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="60" width="555" height="100" backcolor="#FFFFFF" uuid="85e9ae61-209a-44e9-ade6-b16acbd0fb3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTIFICATIONS REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="80" y="-40" width="400" height="81" uuid="4bd42a27-6a10-4d6b-acde-1e5fbf45e77f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[List of Notification Messages]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="278" height="40" backcolor="#CCCCC4" uuid="43f98d1c-b888-4fa5-b602-25dcf43327f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="da29bb5b-6930-4d28-8e8e-769125bf99b6"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="278" y="0" width="277" height="40" backcolor="#CCCCC4" uuid="aef3f222-b224-47d3-be1f-9524cca03712">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f927b11-2109-48ed-a47f-ab0109ae1fd4"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Message]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement key="" style="alternateStyle" mode="Opaque" x="0" y="0" width="278" height="30" backcolor="#99CCCC" uuid="ff467a51-30aa-4043-b495-8b9644efe581"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" style="alternateStyle" mode="Opaque" x="278" y="0" width="277" height="30" isRemoveLineWhenBlank="true" backcolor="#99CCCC" uuid="589e702f-cf17-4410-865a-ae92f9321ae5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{message}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="111" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="12" width="555" height="99" uuid="9f531cbf-e54f-4c8e-8526-7433c2397291"/>
+				<imageExpression><![CDATA[this.getClass().getResourceAsStream("/Technical.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="23" width="555" height="30" uuid="501e4e1c-fcbe-4aa7-8e04-f6d5658aa914"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

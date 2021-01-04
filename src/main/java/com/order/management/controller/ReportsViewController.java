@@ -29,7 +29,7 @@ public class ReportsViewController {
 	public List<ReportsView> retrieveReportRecords() {
 		logger.info("To fetch all orders in the system");
 		LocalDate fromDate = LocalDate.of(2020, 01, 01);
-		LocalDate toDate = LocalDate.of(2020, 12, 31);
+		LocalDate toDate = LocalDate.of(2020, 03, 31);
 		return service.findAllRecords(fromDate, toDate);
 	}
 
